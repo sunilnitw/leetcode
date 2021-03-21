@@ -1,3 +1,4 @@
+[Discussion Post (created on 21/2/2021 at 16:43)](https://leetcode.com/problems/permutations-ii/discuss/1120368/JavaScript-or-Simple-solution-using-Hash)  
 <h2>47. Permutations II</h2><h3>Medium</h3><hr><div><p>Given a collection of numbers, <code>nums</code>,&nbsp;that might contain duplicates, return <em>all possible unique permutations <strong>in any order</strong>.</em></p>
 
 <p>&nbsp;</p>
