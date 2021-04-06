@@ -4,19 +4,20 @@
  * @return {number}
  */
 var mincostTickets = function(days, costs) {
-    let set = new Set(), day = new Array(366).fill(Infinity);
-    days.forEach(ele=>set.add(ele));
-    function dp(i){
-        if(i>365)return 0;
-        if(day[i] != Infinity) return day[i];
-        let ans = Infinity;
-        if(set.has(i)){
-            ans = Math.min(ans, dp(i+1)+costs[0], Math.min(dp(i+7)+costs[1], dp(i+30)+costs[2]));
+    const len = days.length, maxDay = days[len-1], dp = new Array(maxDay+1).fill(Infinity), set = new Set();
+    days.forEach(day=>set.add(day));
+    
+    function minCost(d){
+        if(d>maxDay) return 0;
+        if(dp[d] != Infinity) return dp[d];
+        let cost = Infinity;
+        if(set.has(d)){
+            cost = Math.min(cost, costs[0]+minCost(d+1), Math.min(costs[1]+minCost(d+7), costs[2]+minCost(d+30)));
         } else {
-            ans = dp(i+1);
+            cost = minCost(d+1);
         }
-        day[i] = ans;
-        return day[i];
+        dp[d] = cost;
+        return dp[d];
     }
-    return dp(0);
+    return minCost(0);
 };
