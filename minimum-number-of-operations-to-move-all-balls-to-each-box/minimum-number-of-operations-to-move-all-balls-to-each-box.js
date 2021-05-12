@@ -3,15 +3,21 @@
  * @return {number[]}
  */
 var minOperations = function(boxes) {
-    var ans = [], boxArr = boxes.split(''), len = boxes.length;
-    for(let i=0; i<len; i++){
-        let move = 0
-        for(let j=0; j<len; j++){
-            if(boxArr[j] === '1'){
-                move += Math.abs(j-i);
-            }
+    var boxArr = boxes.split(''), len = boxes.length, ans = new Array(len).fill(0), ball = 0, sum = 0;
+    for(let i=1; i<len; i++){
+        if(boxArr[i-1] === '1'){
+            ball++;
         }
-        ans.push(move);
+        sum += ball;
+        ans[i] = sum;
+    }
+    sum =0; ball=0;
+    for(let i=len-2; i>=0; i--){
+        if(boxArr[i+1] === '1'){
+            ball++;
+        }
+        sum += ball;
+        ans[i] += sum;
     }
     return ans;
 };
