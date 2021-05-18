@@ -3,25 +3,31 @@
  * @return {void} Do not return anything, modify nums in-place instead.
  */
 var nextPermutation = function(nums) {
-    let len = nums.length, leftEnding = len-2, rightEnding = len-1;
-    if(len === 1) return;
+    if(nums.length === 1)return;
+    let len = nums.length-1, leftEnding=nums.length-2, rightEnding;
     
-    function reverse(nums, i, j){
-        while(i<j){
-            [nums[i], nums[j]] = [nums[j], nums[i]];
-            i++;
-            j--;
+    function reverse(l, r){
+        while(l<r){
+            [nums[l], nums[r]] = [nums[r], nums[l]];
+            l++;
+            r--;
         }
     }
     
-    while(leftEnding>=0 && nums[leftEnding]>=nums[leftEnding+1])leftEnding--;
-    if(leftEnding === -1){
-        reverse(nums, 0, len-1);
+    while(leftEnding>=0 && nums[leftEnding]>=nums[leftEnding+1]){
+        leftEnding--;
+    }
+    
+    if(leftEnding < 0){
+        reverse(0, len);
     } else {
-        rightEnding = leftEnding+1;
-        while(rightEnding <= len-1 && nums[leftEnding]<nums[rightEnding])rightEnding++;
+        rightEnding=leftEnding+1;
+        while(rightEnding<=len && nums[leftEnding]<nums[rightEnding]){
+            rightEnding++;
+        }
         rightEnding--;
         [nums[leftEnding], nums[rightEnding]] = [nums[rightEnding], nums[leftEnding]];
-        reverse(nums, leftEnding+1, len-1);
+        reverse(leftEnding+1, len);
+        // console.log(leftEnding, rightEnding);
     }
 };
