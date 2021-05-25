@@ -3,19 +3,19 @@
  * @return {string[]}
  */
 var generateParenthesis = function(n) {
-    var output = [];
-    function generate(arr, curr, left, right, n){
-        if(curr.length == 2*n){
-            output.push(curr);
-            return;
-        }
-        if(left<n){
-            generate(arr, (curr+"("), left+1, right, n);
-        } 
-        if(right<left) {
-            generate(arr, (curr+")"), left, right+1, n);
-        }
-    }
-    generate([], "", 0, 0, n);
-    return output;
+    let output = [];
+    function generate(exp, left, right){
+        if(exp.length === n*2){
+            output.push(exp);
+            return;
+        }
+        if(left<n){
+            generate(exp+"(", left+1, right);
+        }
+        if(right<left){
+            generate(exp+")", left, right+1);
+        }
+    }
+    generate("", 0, 0);
+    return output;
 };
