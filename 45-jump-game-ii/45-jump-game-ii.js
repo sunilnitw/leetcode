@@ -3,6 +3,16 @@
  * @return {number}
  */
 var jump = function(nums) {
+    let jend = 0, far = 0, jmp = 0;
+    for(let i=0; i<nums.length-1; i++){
+        far = Math.max(far, nums[i]+i)
+        if(i === jend){
+            jmp++;
+            jend = far;
+        }
+    }
+    return jmp;
+    
     const cache = {};
     const jump = (pos)=>{
         if(cache.hasOwnProperty(pos))return cache[pos];
