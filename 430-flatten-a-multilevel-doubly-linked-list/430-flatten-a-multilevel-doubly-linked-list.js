@@ -16,15 +16,12 @@ var flatten = function(head) {
     const trace = (node)=>{
         if(!node) return node;
         let ref = node, prev = node;
-        // console.log('::::::::::::::::',node)
         while(node){
             prev = node;
-            // console.log('node--------  ', node)
             if(node.child){
                 let next = node.next;
                 let [first, last] = trace(node.child);
                 
-                // console.log('fff',first, last)
                 node.child=null;
                 node.next = first;
                 first.prev= node;
@@ -32,17 +29,13 @@ var flatten = function(head) {
                     last.next = next;
                     next.prev = last;
                     node = next;
-                    // console.log('lfhhfhdfhdfh')
                 }else{
                     node = last;
                 }
-                // console.log('node: ', node, next)
-                // node = next;
             } else {
                 node = node.next;                
             }
         }
-        // console.log('reeef: ', ref, prev)
         return [ref, prev];
     }
     trace(head);
