@@ -3,19 +3,17 @@
  * @return {number}
  */
 var longestPalindromeSubseq = function(s) {
-    let dp = [];
-    for(let i=0; i<s.length; i++){
-        dp.push(new Array(s.length).fill(0));
-    }
-    for(let i=0; i<s.length; i++){
-        dp[i][i] = 1;
-        for(let j=i-1; j>=0; j--){
-            if(s[i] === s[j]){
-                dp[i][j] = dp[i-1][j+1] + 2;
-            } else {
-                dp[i][j] = Math.max(dp[i-1][j], dp[i][j+1])
-            }
+    const hash = {};
+    const lps = (l, r)=>{
+        if(l === r) return 1;
+        const key = `${l}_${r}`;
+        if(hash[key]) return hash[key];
+        if(s[l]  === s[r]){
+            if(l === r-1) return 2;
+            return (hash[key] = lps(l+1, r-1)+2);
+        } else {
+            return (hash[key] = Math.max(lps(l, r-1), lps(l+1, r)))
         }
     }
-    return dp[s.length-1][0];
+    return lps(0, s.length-1);
 };
